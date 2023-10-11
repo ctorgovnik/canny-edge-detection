@@ -3,25 +3,26 @@ import numpy as np
 class SobelOperator:
 
     def __init__(self):
-        Kx = np.array([[1.0, 0.0, -1.0], [2.0, 0.0, -2.0], [1.0, 0.0, -1.0]])
-        Ky = Kx.T
-        Ix = []
-        Iy = []
+        self.Kx = np.array([[1.0, 0.0, -1.0], [2.0, 0.0, -2.0], [1.0, 0.0, -1.0]])
+        self.Ky = self.Kx.T
+        self.Ix = []
+        self.Iy = []
 
     def gradient_magnitude(self, im):
         self.Ix = self.convolve_2d(im, self.Kx)
         self.Iy = self.convolve_2d(im, self.Ky)
         magnitude = np.sqrt(np.square(self.Ix) + np.square(self.Iy))
+        magnitude = magnitude / magnitude.max() * 255
         return magnitude
 
     def gradient_direction(self):
-        theta = np.arctan2(self.Ix, self.Iy)
+        theta = np.arctan2(self.Iy, self.Ix)
         return theta
 
 
-    def convolve_2d(im, k):
+    def convolve_2d(self, im, k):
         Im, In = im.shape
-        Km, Kn = im.shape
+        Km, Kn = k.shape
 
         # add padding
         pad = (Kn - 1) // 2
@@ -29,12 +30,12 @@ class SobelOperator:
 
         output = np.zeros((Im, In))
 
-        for y in range (Km):
-            for x in range (Kn):
+        for y in range (Im):
+            for x in range (In):
                 # extract sub array the size of kernel
                 region = padded_img[y:y+Km, x:x+Kn]
 
                 output[y, x] = np.sum(region * k)
 
-            return output
+        return output
         
