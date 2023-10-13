@@ -4,11 +4,11 @@ from gradient import SobelOperator
 from suppression import NonMaximumSupression
 from thresholding import DoubleThreshold
 
-import cv2
+# import cv2
 
 
 def main():
-    color_im = ImageIO.read_image("taylor_swift.webp")
+    color_im = ImageIO.read_image("emma_stone.jpg")
     gray_im = ImageIO.convert_grayscale(color_im)
     blur_im = Smoothing.gaussian_blur(gray_im, Smoothing.kernel_3)
 
@@ -18,7 +18,7 @@ def main():
 
     suppressed_im = NonMaximumSupression.suppress(dir, magnitude)
 
-    thresh_im = DoubleThreshold.apply_threshold(suppressed_im, 0.05, 0.2)
+    thresh_im = DoubleThreshold.apply_threshold(suppressed_im, 0.09, 0.25)
 
     ImageIO.display_image(color_im, None)
     ImageIO.display_image(gray_im, "gray")
