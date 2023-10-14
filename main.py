@@ -3,6 +3,7 @@ from smoothing import Smoothing
 from gradient import SobelOperator
 from suppression import NonMaximumSupression
 from thresholding import DoubleThreshold
+from hysteresis import Hysteresis
 
 # import cv2
 
@@ -18,13 +19,16 @@ def main():
 
     suppressed_im = NonMaximumSupression.suppress(dir, magnitude)
 
-    thresh_im = DoubleThreshold.apply_threshold(suppressed_im, 0.09, 0.25)
+    thresh_im = DoubleThreshold.apply_threshold(suppressed_im, 0.05, 0.25)
+
+    final_im = Hysteresis.apply_hysteresis(thresh_im)
 
     ImageIO.display_image(color_im, None)
     ImageIO.display_image(gray_im, "gray")
     ImageIO.display_image(blur_im, "gray")
     ImageIO.display_image(suppressed_im, "gray")
     ImageIO.display_image(thresh_im, "gray")
+    ImageIO.display_image(final_im, "gray")
 
 
 if __name__ == "__main__":
