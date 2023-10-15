@@ -12,7 +12,8 @@ class ImageIO:
     def convert_grayscale(im):
         return np.dot(im[..., :3], [0.299, 0.587, 0.114])
 
-    def display_image(image, color):
+    def display_image(image, color, title):
         # Display the image
         plt.imshow(image, cmap=color)
+        plt.title(title)
         plt.show()
