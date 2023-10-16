@@ -16,7 +16,9 @@ def main():
     except FileNotFoundError:
         print(f"Error: File '{file_name}' not found in the current directory.")
         return
-    
+
+    # color_im = ImageIO.read_image("goat.jpeg")
+
     gray_im = ImageIO.convert_grayscale(color_im)
     blur_im = Smoothing.gaussian_blur(gray_im, Smoothing.kernel_3)
 
