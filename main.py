@@ -9,7 +9,14 @@ import numpy as np
 
 
 def main():
-    color_im = ImageIO.read_image("taylor_swift.webp")
+    file_name = input("Enter the image file name (with extension)\n")
+
+    try:
+        color_im = ImageIO.read_image(file_name)
+    except FileNotFoundError:
+        print(f"Error: File '{file_name}' not found in the current directory.")
+        return
+    
     gray_im = ImageIO.convert_grayscale(color_im)
     blur_im = Smoothing.gaussian_blur(gray_im, Smoothing.kernel_3)
 
