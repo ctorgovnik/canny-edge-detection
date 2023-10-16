@@ -10,7 +10,7 @@ class DoubleThreshold:
         thresh_im = np.zeros((x, y))
 
         strong_x, strong_y = np.where(im >= high_thresh)
-        weak_x, weak_y = np.where((im <= high_thresh) & (im >= low_thresh))
+        weak_x, weak_y = np.where((im < high_thresh) & (im >= low_thresh))
 
         thresh_im[strong_x, strong_y] = 255
         thresh_im[weak_x, weak_y] = 75
